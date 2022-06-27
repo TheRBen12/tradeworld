@@ -50,7 +50,7 @@ export default function RegistrationForm(props: Props) {
                                 </div>
 
                                 <div className="mb-3 form-group">
-                                    <button onSubmit={props.onSubmit()} type="submit"
+                                    <button onSubmit={props.onSubmit()}
                                             className=" submit-button btn btn-primary">Login
                                     </button>
                                 </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 interface Props {
 
@@ -46,8 +47,7 @@ export default function LoginForm(props: Props) {
                             </form>
                         </div>
                         <div>
-                            <p>No Account yet?</p><a href=""> Login
-                            now</a>
+                            <Link to={"/register"}>No Account yet? Register now</Link>
                         </div>
                     </div>
                 </div>

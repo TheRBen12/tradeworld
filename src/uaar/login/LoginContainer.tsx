@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import LoginForm from "./LoginForm";
 import axios from "axios";
 import update from 'immutability-helper';
+import RegistrationForm from "../registration/RegistrationForm";
 
 interface State {
     authenticated: boolean
