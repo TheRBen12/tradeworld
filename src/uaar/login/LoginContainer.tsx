@@ -2,12 +2,18 @@ import React, {ChangeEvent} from 'react';
 import LoginForm from "./LoginForm";
 import axios from "axios";
 import update from 'immutability-helper';
+import {Form} from "react-bootstrap";
+import {generatePath} from "react-router-dom";
+import {ToastContainer, toast} from "react-toastify";
 
 interface State {
     authenticated: boolean
     valid: boolean
     email: string
     password: string
+}
+interface Props{
+    identifyUser: CallableFunction
 }
 
 export default class LoginContainer extends React.Component<any, State> {
@@ -23,21 +29,21 @@ export default class LoginContainer extends React.Component<any, State> {
     }
 
 
-    constructor(props: {}) {
+    constructor(props: { }) {
         super(props);
         this.onInputChanged = this.onInputChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     public async handleSubmit() {
-        const data = await axios.post('http://localhost:8000/login', {email: this.state.email, password: this.state.password},
+        const response = await axios.post('http://localhost:8000/login', {email: this.state.email, password: this.state.password, csrf_token: 'authenticate'},
             {headers: {'content-type': 'application/json'}});
-        if (data) {
-            console.log('successfully authenticated')
+        if (response.status == 401 || response.data === 'invalid credentials') {
+            this.state.authenticated = false;
+        }else{
+            this.props.identifyUser(response.data);
         }
     }
-
-
 
     public onInputChanged(event: ChangeEvent<HTMLInputElement>) {
         const id = event.currentTarget.id;
