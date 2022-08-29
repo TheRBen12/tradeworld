@@ -46,20 +46,20 @@ export default function LoginForm(props: Props) {
         <div className="mt-5">
             <div className="d-flex justify-content-center align-items-center">
                 <div className="w-50">
-                    <div className=" login-container shadow p-3 mb-5 rounded card">
+                    <div className=" login-container p-3 mb-5 rounded card">
                         <div className="m-2">
-                            <h2 className="text-center mt-3">Sign in</h2>
+                            <h2 className="text-center mt-3 mb-5">Sign in</h2>
                             <div className="">
                                 {error &&
                                 <div className="alert alert-danger mt-3 mb-3">
                                     <strong>
-                                        <FormattedMessage id={"login.error"}/>
+                                        <FormattedMessage tagName={"label"} id={"login.error"}/>
                                     </strong>
                                 </div>}
                                 {props.invalid &&
                                 <div className="alert alert-danger mt-3 mb-3">Invalid credentials</div>}
                                 <div className="mb-3 form-group">
-                                    <label htmlFor="email"><p>Email</p></label>
+                                    <label htmlFor="email"><FormattedMessage id ={"user.email"}/></label>
                                     <input onChange={e => {
                                         props.onChange(e);
                                         setError(false)
@@ -71,7 +71,7 @@ export default function LoginForm(props: Props) {
                                         else.</small>
                                 </div>
                                 <div className=" mb-3 form-group">
-                                    <label htmlFor="password"><p>Password</p></label>
+                                    <label htmlFor="password"><FormattedMessage tagName={"label"} id={"user.password"}/></label>
                                     <input required={true} onChange={e => {
                                         props.onChange(e);
                                         setError(false)

@@ -40,13 +40,13 @@ export default function RegistrationForm(props: Props) {
                     <form onSubmit={
                         handleSubmit(onSubmit)}>
                         <div className="w-100">
-                            <h2 className="text-center mt-3">Sign Up</h2>
+                            <h2 className="text-center mt-3 mb-5">Sign Up</h2>
                             <div className="m-2">
                                 {props.error &&
                                     <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger"><FormattedMessage
                                         id={"register.error"}/></div>}
                                 <div className="mb-3 form-group">
-                                    <label htmlFor="email"><FormattedMessage tagName={"p"} id={"user.email"}/></label>
+                                    <label htmlFor="email"><FormattedMessage tagName={"label"} id={"user.email"}/></label>
                                     <input
                                         {...register("email", {
                                             required: true,
@@ -61,7 +61,7 @@ export default function RegistrationForm(props: Props) {
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label htmlFor="firstName"><FormattedMessage tagName={"p"}
+                                    <label htmlFor="firstName"><FormattedMessage tagName={"label"}
                                                                                  id={"user.firstName"}/></label>
                                     <input
                                         {...register("firstName",
@@ -78,7 +78,7 @@ export default function RegistrationForm(props: Props) {
                                     {errors.firstName?.type === 'required' && "Bitte gib einen Vornamen ein*"}
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label htmlFor="lastName"><FormattedMessage tagName={"p"}
+                                    <label htmlFor="lastName"><FormattedMessage tagName={"label"}
                                                                                 id={"user.lastName"}/></label>
                                     <input
 
@@ -96,7 +96,7 @@ export default function RegistrationForm(props: Props) {
                                     </div>
                                 </div>
                                 <div className=" mb-3 form-group">
-                                    <label htmlFor="password"><FormattedMessage tagName={"p"}
+                                    <label htmlFor="password"><FormattedMessage tagName={"label"}
                                                                                 id={"user.password"}/></label>
                                     <input
                                         {...register("password",
@@ -116,7 +116,7 @@ export default function RegistrationForm(props: Props) {
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col">
-                                        <label><FormattedMessage tagName={"p"} id={"user.country"}/></label>
+                                        <label><FormattedMessage tagName={"label"} id={"user.country"}/></label>
                                         <select {...register("country", {required: true})}
                                                 defaultValue={"Land"} className="form-select"
                                                 aria-label="Default select example">
@@ -131,7 +131,7 @@ export default function RegistrationForm(props: Props) {
                                         </div>
                                     </div>
                                     <div className="col">
-                                        <label><FormattedMessage tagName={"p"} id={"user.city"}/></label>
+                                        <label><FormattedMessage tagName={"label"} id={"user.city"}/></label>
                                         <input
                                             {...register("city", {
                                                 required: true,
