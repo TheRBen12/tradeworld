@@ -48,17 +48,16 @@ export default function RegistrationForm(props: Props) {
                                 <div className="mb-3 form-group">
                                     <label htmlFor="email"><FormattedMessage tagName={"p"} id={"user.email"}/></label>
                                     <input
-                                        {...register("mail", {
+                                        {...register("email", {
                                             required: true,
                                         })}
                                         onInput={(e) => props.onChange(e)}
                                         type="email"
                                         name="email"
                                         className="form-control" id="email"
-                                        value={props.email}
                                         placeholder="Enter your email here"/>
                                     <div className="form-error-message mt-1">
-                                        {errors.mail?.type === 'required' && "Bitte E-Mail eingeben*"}
+                                        {errors.email?.type === 'required' && "Bitte E-Mail eingeben*"}
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
@@ -119,7 +118,7 @@ export default function RegistrationForm(props: Props) {
                                     <div className="col">
                                         <label><FormattedMessage tagName={"p"} id={"user.country"}/></label>
                                         <select {...register("country", {required: true})}
-                                            defaultValue={"Land"} className="form-select"
+                                                defaultValue={"Land"} className="form-select"
                                                 aria-label="Default select example">
                                             <option value="Schweiz">Schweiz</option>
                                             <option value="Deutschland">Deutschland</option>
@@ -127,14 +126,22 @@ export default function RegistrationForm(props: Props) {
                                             <option value="Österreich">Österreich</option>
                                             <option value="Niederlande">Niederlande</option>
                                         </select>
-                                        <div>
-                                            <p>{errors.country?.type=== 'required' && "Bitte wähle eine Land aus"}</p>
+                                        <div className="form-error-message mt-1">
+                                            <p>{errors.country?.type === 'required' && errors.country.message === "Bitte wähle eine Land aus*"}</p>
                                         </div>
                                     </div>
                                     <div className="col">
                                         <label><FormattedMessage tagName={"p"} id={"user.city"}/></label>
-                                        <input className="form-control" type="text"
-                                               name="city" onInput={(e) => props.onChange(e)}/>
+                                        <input
+                                            {...register("city", {
+                                                required: true,
+                                                minLength: 3})}
+                                            className="form-control"
+                                            type="text"
+                                            name="city" onInput={(e) => props.onChange(e)}/>
+                                        <div className="form-error-message mt-1">
+                                            {errors.city?.type === 'required' && "Bitte gib eine Stadt ein*"}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
