@@ -14,21 +14,19 @@ import "./custom.scss"
 import AccountContainer from "./uaar/Account/AccountContainer";
 import readCookie from "./uaar/CookieService";
 import {IconContext} from "react-icons";
+import { useForm } from "react-hook-form";
+
 
 
 const locale = 'de';
 const messages = {'de': de, 'en': en}
 
-const dateIntlConfig = {
-    options: {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZoneName: "short"
-    }
-}
-
 export default function App() {
+
+    const { register, handleSubmit } = useForm();
+    function onSubmit(data: any){
+        console.log(data);
+    }
 
 
     return (
@@ -36,7 +34,6 @@ export default function App() {
             <IconContext.Provider value={{className: 'icon', color: "black"}}>
                 <Nav/>
                 <Routes>
-
                     <Route path={"/"} element={
                         <SecuredRoute sessionCookie={readCookie.readCookie('JSESSIONID')}>
                             <Dashboard/>
@@ -50,8 +47,11 @@ export default function App() {
                     <Route path={"/dashboard"} element={<Dashboard/>}/>
                 </Routes>
             </IconContext.Provider>
-        </IntlProvider>
 
+
+
+
+        </IntlProvider>
     );
 }
 

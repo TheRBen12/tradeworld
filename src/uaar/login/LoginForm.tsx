@@ -3,7 +3,6 @@ import {Link, useNavigate} from 'react-router-dom'
 import './LoginForm.scss'
 import axios from "axios";
 import {FormattedMessage} from 'react-intl'
-import Cookies from "universal-cookie";
 
 interface Props {
 
@@ -16,7 +15,6 @@ interface Props {
 }
 
 export default function LoginForm(props: Props) {
-    const [authenticated, setAuthenticated] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
@@ -33,15 +31,13 @@ export default function LoginForm(props: Props) {
                 }
             })
             .then((response) => {
-                if (response) {
+                if (response.status !== 403 && response.status !== 401) {
                     navigate("/");
-                    setAuthenticated(true);
                     props.onSubmit()
                 }
             }).catch((error) =>{
                 if (error){
                     setError(true);
-
                 }
         } );
     }
@@ -49,9 +45,9 @@ export default function LoginForm(props: Props) {
     return (
         <div className="mt-5">
             <div className="d-flex justify-content-center align-items-center">
-                <div className="w-25">
+                <div className="w-50">
                     <div className=" login-container shadow p-3 mb-5 rounded card">
-                        <div>
+                        <div className="m-2">
                             <h2 className="text-center mt-3">Sign in</h2>
                             <div className="">
                                 {error &&
@@ -67,7 +63,7 @@ export default function LoginForm(props: Props) {
                                     <input onChange={e => {
                                         props.onChange(e);
                                         setError(false)
-                                    }} type="email" value={props.email} name="email"
+                                    }} type="email" value={props.email} required={true} name="email"
                                            className="form-control" id="email"
                                            aria-describedby="emailHelp" placeholder="Enter your email here"/>
                                     <small id="emailHelp" className="form-text text-muted">We'll never share your
@@ -76,7 +72,7 @@ export default function LoginForm(props: Props) {
                                 </div>
                                 <div className=" mb-3 form-group">
                                     <label htmlFor="password"><p>Password</p></label>
-                                    <input onChange={e => {
+                                    <input required={true} onChange={e => {
                                         props.onChange(e);
                                         setError(false)
                                     }} type="password" name="password"

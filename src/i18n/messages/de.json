@@ -18,7 +18,10 @@
   "user.firstName": "Vorname",
   "user.lastName": "Nachname",
   "user.email": "E-Mail",
+  "user.password": "Passwort",
   "user.city": "Stadt",
   "user.country": "Land",
-  "user.joinedAt": "Beigetreten am:"
+  "user.joinedAt": "Beigetreten am:",
+  "select.country": "Wähle ein Land aus",
+  "select.city": "Wähle eine Stadt aus"
 }

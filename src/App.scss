@@ -36,10 +36,33 @@
     transform: rotate(360deg);
   }
 }
-
 .icon{
   size: 50px;
   height: 40px;
   width: 40px;
   cursor: pointer;
 }
+
+p{
+  color: #0D3248;
+  margin-bottom: 0.3em;
+  font-family: "Sitka Text", serif;
+  font-weight: bold;
+}
+label{
+  color: #0D3248;
+  margin-bottom: 0.5em;
+  font-family: "Sitka Text", serif;
+  font-weight: bold;
+}
+h1{
+  color: #0D3248;
+}
+h2{
+  color: #0D3248;
+}
+
+.form-error-message{
+  color: red;
+}
+

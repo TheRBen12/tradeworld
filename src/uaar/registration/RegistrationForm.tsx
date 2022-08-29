@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {FormattedMessage} from 'react-intl'
+import {useForm} from "react-hook-form";
 
 
 interface Props {
@@ -17,80 +18,140 @@ interface Props {
 
 export default function RegistrationForm(props: Props) {
     const navigate = useNavigate()
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
     let errorMessage;
 
-    function handleSubmit() {
+    function onSubmit() {
         props.onSubmit();
     }
 
     useEffect(() => {
         if (props.error) {
             errorMessage =
-                <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger"><FormattedMessage id={"register.error"}/></div>
+                <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger">
+                    <FormattedMessage id={"register.error"}/>
+                </div>
         }
     })
-    return <div className=" mt-5 ">
+    return <div className=" mt-5">
         <div className="d-flex justify-content-center align-items-center">
             <div className="w-50">
                 <div className="registration-container shadow p-3 mb-5 rounded card ">
-                    <div>
-                        <h2 className="text-center mt-3">Sign Up</h2>
-                        <div>
-                            {props.error && <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger"><FormattedMessage
-                                id={"register.error"}/></div>}
-                            <div className="mb-3 form-group">
-                                <label htmlFor="email"><p>Email</p></label>
-                                <input onInput={(e) => props.onChange(e)} type="email" name="email"
-                                       className="form-control" id="email"
-                                       aria-describedby="emailHelp" value={props.email}
-                                       placeholder="Enter your email here"/>
-                                <small id="emailHelp" className="form-text text-muted">We'll never share your
-                                    email with anyone
-                                    else.</small>
-                            </div>
-                            <div className="mb-3 form-group">
-                                <label htmlFor="firstName"><p>firstName</p></label>
-                                <input onInput={(e) => props.onChange(e)} type="text" name="firstName"
-                                       className="form-control" id="firstName"
-                                       placeholder="Enter your first name here"/>
-                            </div>
-                            <div className="mb-3 form-group">
-                                <label htmlFor="lastName"><p>lastName</p></label>
-                                <input onInput={(e) => props.onChange(e)} type="text" name="lastName"
-                                       className="form-control" id="lastName"
-                                       placeholder="Enter your last name here"/>
-                            </div>
-                            <div className=" mb-3 form-group">
-                                <label htmlFor="password"><p>Password</p></label>
-                                <input onInput={(e) => props.onChange(e)} type="password" name="password"
-                                       className="form-control" id="password"
-                                       placeholder="enter your password here"/>
-                            </div>
-                            <div className="form-check mb-5">
-                                <label>
-                                    <input onInput={(e) => props.onChange(e)} type="checkbox"
-                                           className="form-check-input" name="_remember_me"/>Remember me
-                                </label>
-                            </div>
+                    <form onSubmit={
+                        handleSubmit(onSubmit)}>
+                        <div className="w-100">
+                            <h2 className="text-center mt-3">Sign Up</h2>
+                            <div className="m-2">
+                                {props.error &&
+                                    <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger"><FormattedMessage
+                                        id={"register.error"}/></div>}
+                                <div className="mb-3 form-group">
+                                    <label htmlFor="email"><FormattedMessage tagName={"p"} id={"user.email"}/></label>
+                                    <input
+                                        {...register("mail", {
+                                            required: true,
+                                        })}
+                                        onInput={(e) => props.onChange(e)}
+                                        type="email"
+                                        name="email"
+                                        className="form-control" id="email"
+                                        value={props.email}
+                                        placeholder="Enter your email here"/>
+                                    <div className="form-error-message mt-1">
+                                        {errors.mail?.type === 'required' && "Bitte E-Mail eingeben*"}
+                                    </div>
+                                </div>
+                                <div className="mb-3 form-group">
+                                    <label htmlFor="firstName"><FormattedMessage tagName={"p"}
+                                                                                 id={"user.firstName"}/></label>
+                                    <input
+                                        {...register("firstName",
+                                            {
+                                                required: true,
+                                                minLength: 3
+                                            })}
+                                        onInput={(e) => props.onChange(e)}
+                                        type="text" name="firstName"
+                                        className="form-control" id="firstName"
+                                        placeholder="Enter your first name here"/>
+                                </div>
+                                <div className="form-error-message mt-1">
+                                    {errors.firstName?.type === 'required' && "Bitte gib einen Vornamen ein*"}
+                                </div>
+                                <div className="mb-3 form-group">
+                                    <label htmlFor="lastName"><FormattedMessage tagName={"p"}
+                                                                                id={"user.lastName"}/></label>
+                                    <input
 
-                            <div className="mb-3 form-group">
-                                <button onClick={() => handleSubmit()} type="submit"
-                                        className=" submit-btn btn btn-primary">Register
-                                </button>
-                            </div>
-                            <input type="hidden" name="_csrf_token" value=""/>
+                                        {...register('lastName',
+                                            {
+                                                required: true,
+                                                minLength: 3
+                                            }
+                                        )}
+                                        onInput={(e) => props.onChange(e)} type="text" name="lastName"
+                                        className="form-control" id="lastName"
+                                        placeholder="Enter your last name here"/>
+                                    <div className="form-error-message mt-1">
+                                        {errors.lastName?.type === 'required' && "Bitte gib einen Vornamen ein*"}
+                                    </div>
+                                </div>
+                                <div className=" mb-3 form-group">
+                                    <label htmlFor="password"><FormattedMessage tagName={"p"}
+                                                                                id={"user.password"}/></label>
+                                    <input
+                                        {...register("password",
+                                            {
+                                                required: true,
+                                                minLength: 5
+                                            }
+                                        )}
+                                        onInput={(e) => props.onChange(e)} type="password"
+                                        name="password"
+                                        className="form-control" id="password"
+                                        placeholder="enter your password here"/>
 
+                                    <div className="form-error-message mt-1">
+                                        {errors.password?.type === 'required' && "Bitte gib einen Vornamen ein*"}
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                        <label><FormattedMessage tagName={"p"} id={"user.country"}/></label>
+                                        <select {...register("country", {required: true})}
+                                            defaultValue={"Land"} className="form-select"
+                                                aria-label="Default select example">
+                                            <option value="Schweiz">Schweiz</option>
+                                            <option value="Deutschland">Deutschland</option>
+                                            <option value="Frankreich">Frankreich</option>
+                                            <option value="Österreich">Österreich</option>
+                                            <option value="Niederlande">Niederlande</option>
+                                        </select>
+                                        <div>
+                                            <p>{errors.country?.type=== 'required' && "Bitte wähle eine Land aus"}</p>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <label><FormattedMessage tagName={"p"} id={"user.city"}/></label>
+                                        <input className="form-control" type="text"
+                                               name="city" onInput={(e) => props.onChange(e)}/>
+                                    </div>
+                                </div>
+                                <div className="mb-3 form-group">
+                                    <button type="submit"
+                                            className=" submit-btn btn btn-primary">Register
+                                    </button>
+                                </div>
+                                <div>
+                                    <Link to={"/login"}>Already have an account? Sign in now</Link>
+                                </div>
+                            </div>
                         </div>
-
-                        <div>
-                            <Link to={"/login"}>Already have an account? Sign in now</Link>
-                        </div>
-                    </div>
-
+                    </form>
                 </div>
             </div>
-
         </div>
+
     </div>
 
 }

@@ -9,6 +9,8 @@ interface State {
     firstName: string
     lastName: string
     password: string
+    city: string
+    country: string
     valid: boolean
     error: boolean
 }
@@ -23,8 +25,11 @@ export default class RegistrationContainer extends React.Component<any, State> {
             password: "",
             firstName: "",
             lastName: "",
+            country: "",
+            city: "",
             valid: false,
-            error: false
+            error: false,
+
         }
     }
 

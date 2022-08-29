@@ -1,7 +1,6 @@
 import React from 'react'
 import {Card} from "react-bootstrap";
 import {FormattedMessage, FormattedDate} from "react-intl";
-import User from "../../models/user";
 import "./AccountContainer.scss";
 import {MdModeEdit} from 'react-icons/md'
 import {Props} from "./Props";
@@ -56,7 +55,6 @@ export default function AccountDetails(props: Props) {
             <div className="d-flex flex-row-reverse m-lg-3">
                 <div className="p-2"><MdModeEdit/></div>
             </div>
-
         </Card>
     </div>
 }
