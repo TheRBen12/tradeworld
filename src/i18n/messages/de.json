@@ -23,5 +23,8 @@
   "user.country": "Land",
   "user.joinedAt": "Beigetreten am:",
   "select.country": "Wähle ein Land aus",
-  "select.city": "Wähle eine Stadt aus"
+  "select.city": "Wähle eine Stadt aus",
+  "account.edit.title": "Ändere deine Benutzerinformationen",
+  "user.address": "Adresse"
+
 }

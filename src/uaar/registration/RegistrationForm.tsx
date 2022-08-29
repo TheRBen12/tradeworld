@@ -36,7 +36,7 @@ export default function RegistrationForm(props: Props) {
     return <div className=" mt-5">
         <div className="d-flex justify-content-center align-items-center">
             <div className="w-50">
-                <div className="registration-container shadow p-3 mb-5 rounded card ">
+                <div className="registration-container p-3 mb-5 rounded card ">
                     <form onSubmit={
                         handleSubmit(onSubmit)}>
                         <div className="w-100">
