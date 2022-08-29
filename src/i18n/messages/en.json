@@ -1,0 +1,17 @@
+{
+  "login.username": "Username:",
+  "login.password": "Password:",
+  "login.login": "login",
+  "login.error": "We could not reach our server.",
+  "game.info": "It's {info} turn.",
+  "game.yourTurn": "your",
+  "game.computerTurn": "the computers",
+  "card.size": "Size",
+  "card.weight": "Weight",
+  "card.age": "Age",
+  "card.offspring": "Offspring",
+  "card.speed": "Speed",
+  "admin.found.one": "One dataset found.",
+  "admin.found.many": "{count} datasets found.",
+  "account.details": "Account Details"
+}

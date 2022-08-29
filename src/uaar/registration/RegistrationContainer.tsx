@@ -10,6 +10,7 @@ interface State {
     lastName: string
     password: string
     valid: boolean
+    error: boolean
 }
 
 export default class RegistrationContainer extends React.Component<any, State> {
@@ -17,30 +18,36 @@ export default class RegistrationContainer extends React.Component<any, State> {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onInputChanged = this.onInputChanged.bind(this);
+        this.state = {
+            email: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+            valid: false,
+            error: false
+        }
     }
+
     showError = false;
 
-    state: State = {
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        valid: false
-    }
 
     public handleSubmit() {
-        if (!this.state.valid){
-            this.showError = true;
-        }
-        debugger;
-        if (this.state.valid) {
-            const responseData = axios.post("http://localhost:8000/api/register", this.state,
-                {headers: {'Content-type': 'application/json'}}).then((response) => {
-                if (response.status == 204) {
-
-                }
-            })
-        }
+        axios.post("http://localhost:8080/api/register", {
+            email: this.state.email,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName
+        }).then((response) => {
+            if (response.status == 204) {
+                this.setState((state) => {
+                    update(state, {
+                        error: {$set: false}
+                    })
+                })
+            }
+        }).catch((error) => {
+            this.setState({error: true});
+        })
     }
 
     public onInputChanged(event: ChangeEvent<HTMLInputElement>) {
@@ -60,7 +67,9 @@ export default class RegistrationContainer extends React.Component<any, State> {
     }
 
     render() {
-        return <RegistrationForm onSubmit={this.handleSubmit} onChange={this.onInputChanged} error={this.showError} email={this.state.email} password={this.state.password}
-        firstName={this.state.firstName} lastName={this.state.lastName} valid={this.state.valid}/>
+        return <RegistrationForm onSubmit={this.handleSubmit} onChange={this.onInputChanged} error={this.state.error}
+                                 email={this.state.email} password={this.state.password}
+                                 firstName={this.state.firstName} lastName={this.state.lastName}
+                                 valid={this.state.valid}/>
     }
 }

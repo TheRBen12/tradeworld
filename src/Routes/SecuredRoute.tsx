@@ -1,20 +1,15 @@
 
 
-import React, {useCallback, useEffect, useState} from "react";
-import {Navigate, Outlet} from "react-router-dom";
-import useLocalState from "../useLocalState";
-import Dashboard from "../home/Dashboard";
-import LoginContainer from "../uaar/login/LoginContainer";
+import React from "react";
+import {Navigate} from "react-router-dom";
+
 interface Props {
-    children: JSX.Element;
+    children: JSX.Element,
+    sessionCookie: string
 }
 
-const useAuth = () => {
 
-}
-
-const SecuredRoute = () => {
-    const [currentUser, setCurrentUser] = useLocalState("", 'currentUser')
-    return currentUser !== "" ? <Dashboard/> : <Navigate to={"/login"}/>
+const SecuredRoute = (props: Props) => {
+   return props.sessionCookie ? props.children : <Navigate to={"/login"}/>
 };
 export default SecuredRoute;

@@ -11,8 +11,10 @@ interface State {
     valid: boolean
     email: string
     password: string
+    invalid: boolean
 }
-interface Props{
+
+interface Props {
     identifyUser: CallableFunction
 }
 
@@ -25,24 +27,28 @@ export default class LoginContainer extends React.Component<any, State> {
         authenticated: false,
         valid: false,
         password: "",
-        email: ""
+        email: "",
+        invalid: false
     }
 
 
-    constructor(props: { }) {
+    constructor(props: {}) {
         super(props);
         this.onInputChanged = this.onInputChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showError = this.showError.bind(this);
     }
 
-    public async handleSubmit() {
-        const response = await axios.post('http://localhost:8000/login', {email: this.state.email, password: this.state.password, csrf_token: 'authenticate'},
-            {headers: {'content-type': 'application/json'}});
-        if (response.status == 401 || response.data === 'invalid credentials') {
-            this.state.authenticated = false;
-        }else{
-            this.props.identifyUser(response.data);
-        }
+    public handleSubmit() {
+        this.props.identifyUser()
+    }
+
+    public showError() {
+        this.setState((state) =>
+            update(state, {
+                invalid: {$set: true}
+            })
+        )
     }
 
     public onInputChanged(event: ChangeEvent<HTMLInputElement>) {
@@ -57,7 +63,8 @@ export default class LoginContainer extends React.Component<any, State> {
     }
 
     render() {
-        return <LoginForm onChange={this.onInputChanged} {...this.state} onSubmit={this.handleSubmit}/>
+        return <LoginForm showInvalidCredentialsError={this.showError} onChange={this.onInputChanged} {...this.state}
+                          onSubmit={this.handleSubmit}/>
     }
 
 }
