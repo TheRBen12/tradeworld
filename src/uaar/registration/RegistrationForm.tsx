@@ -14,25 +14,23 @@ interface Props {
     password: string
     valid: boolean
     error: boolean
+    errorMessage: string
+
 }
 
 export default function RegistrationForm(props: Props) {
     const navigate = useNavigate()
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    let errorMessage;
 
     function onSubmit() {
         props.onSubmit();
+        navigate("/login")
     }
 
-    useEffect(() => {
-        if (props.error) {
-            errorMessage =
-                <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger">
-                    <FormattedMessage id={"register.error"}/>
-                </div>
-        }
-    })
+    function completeRegistrationProcess(){
+        navigate("/login");
+    }
+
     return <div className=" mt-5">
         <div className="d-flex justify-content-center align-items-center">
             <div className="w-50">
@@ -44,7 +42,7 @@ export default function RegistrationForm(props: Props) {
                             <div className="m-2">
                                 {props.error &&
                                     <div className=" mr-3 ml-3 mt-3 mb-3 alert alert-danger"><FormattedMessage
-                                        id={"register.error"}/></div>}
+                                        id={props.errorMessage}/></div>}
                                 <div className="mb-3 form-group">
                                     <label htmlFor="email"><FormattedMessage tagName={"label"} id={"user.email"}/></label>
                                     <input
@@ -117,8 +115,10 @@ export default function RegistrationForm(props: Props) {
                                 <div className="row mb-3">
                                     <div className="col">
                                         <label><FormattedMessage tagName={"label"} id={"user.country"}/></label>
-                                        <select {...register("country", {required: true})}
-                                                defaultValue={"Land"} className="form-select"
+                                        <select
+                                            onInput={(e) => props.onChange(e) } onSelect={(e) => props.onChange(e)} {...register("country", {required: true})}
+                                            id = {"country"}
+                                            defaultValue={"Land"} className="form-select"
                                                 aria-label="Default select example">
                                             <option value="Schweiz">Schweiz</option>
                                             <option value="Deutschland">Deutschland</option>
@@ -137,8 +137,10 @@ export default function RegistrationForm(props: Props) {
                                                 required: true,
                                                 minLength: 3})}
                                             className="form-control"
+                                            onInput={(e) => props.onChange(e)}
                                             type="text"
-                                            name="city" onInput={(e) => props.onChange(e)}/>
+                                            id={"city"}
+                                            name="city"/>
                                         <div className="form-error-message mt-1">
                                             {errors.city?.type === 'required' && "Bitte gib eine Stadt ein*"}
                                         </div>

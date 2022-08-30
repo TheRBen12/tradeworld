@@ -4,7 +4,7 @@ import User from "../../models/user";
 import axios from "axios";
 import Cookies from 'universal-cookie'
 import {State} from "./State";
-import {Route} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import AccountEditFormContainer from "./AccountEditFormContainer";
 
 export default class AccountContainer extends React.Component<any, State> {
@@ -43,7 +43,9 @@ export default class AccountContainer extends React.Component<any, State> {
         const account = this.state.user;
         return <div>
             {account && <AccountDetails user={account}/>}
-            <Route path={"/edit"} element={<AccountEditFormContainer user={account} />}></Route>
+            <Routes>
+                <Route path={"/edit"} element={<AccountEditFormContainer user={account}/>}/>
+            </Routes>
         </div>
 
     }

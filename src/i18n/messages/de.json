@@ -14,6 +14,7 @@
   "admin.found.one": "Ein Datensatz gefunden.",
   "admin.found.many": "{count} Datensätze gefunden.",
   "register.error": "Wir konnten deinen Account leider nicht erstellen",
+  "register.account.exists.error": "Dieser Benutzer existiert bereits",
   "account.details": "Deine Benutzerinformationen",
   "user.firstName": "Vorname",
   "user.lastName": "Nachname",
