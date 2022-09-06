@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import RegistrationForm from "./RegistrationForm";
 import axios from "axios";
 import update from "immutability-helper";
-import registerError from '../../i18n/messages/de.json'
+import {Navigate} from 'react-router';
 
 
 interface State {
@@ -14,10 +14,12 @@ interface State {
     country: string
     valid: boolean
     error: boolean
+    finished: boolean;
 }
 
 export default class RegistrationContainer extends React.Component<any, State> {
     errorMessage: string = "";
+
     constructor(props: {}) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,13 +33,14 @@ export default class RegistrationContainer extends React.Component<any, State> {
             city: "",
             valid: false,
             error: false,
+            finished: false
 
         }
     }
+
     showError = false;
 
     public handleSubmit() {
-        debugger;
         axios.post("http://localhost:8080/api/register", {
             email: this.state.email,
             password: this.state.password,
@@ -46,25 +49,25 @@ export default class RegistrationContainer extends React.Component<any, State> {
             country: this.state.country,
             city: this.state.city
         }).then((response) => {
-            debugger;
-            if (response.status == 204) {
-                this.setState((state) => {
-                    update(state, {
-                        error: {$set: false}
-                    })
-                })
+            if (response.status == 201) {
+                this.setState({finished: true});
             }
         }).catch((error) => {
-            switch (error.code){
+            switch (error.code) {
                 case "ERR_BAD_REQUEST":
                     this.errorMessage = "register.account.exists.error";
                     break;
                 case "ERR_NETWORK":
                     this.errorMessage = "register.error";
+                    break;
 
             }
             this.setState({error: true});
         })
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<State>, snapshot?: any) {
+        console.log(this.state.finished);
     }
 
     public onInputChanged(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) {
@@ -84,9 +87,15 @@ export default class RegistrationContainer extends React.Component<any, State> {
     }
 
     render() {
-        return <RegistrationForm onSubmit={this.handleSubmit} onChange={this.onInputChanged} error={this.state.error}
-                                 email={this.state.email} password={this.state.password}
-                                 firstName={this.state.firstName} lastName={this.state.lastName}
-                                 valid={this.state.valid} errorMessage={this.errorMessage}/>
+        if (this.state.finished) {
+            return <Navigate to={"/login"}/>
+        } else {
+            return <div>
+                <RegistrationForm onSubmit={this.handleSubmit} onChange={this.onInputChanged} error={this.state.error}
+                                  email={this.state.email} password={this.state.password}
+                                  firstName={this.state.firstName} lastName={this.state.lastName}
+                                  valid={this.state.valid} errorMessage={this.errorMessage}/>
+            </div>
+        }
     }
 }

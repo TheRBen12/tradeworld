@@ -4,7 +4,7 @@ import {FormattedMessage, FormattedDate} from "react-intl";
 import "./AccountContainer.scss";
 import {MdModeEdit} from 'react-icons/md'
 import {Props} from "./Props";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 export default function AccountDetails(props: Props) {
@@ -53,7 +53,9 @@ export default function AccountDetails(props: Props) {
                 </div>
             </div>
             <div className="d-flex flex-row-reverse m-lg-3">
-                <div className="p-2"><MdModeEdit/></div>
+                <Link to={"/edit"}>
+                    <div className="p-2"><MdModeEdit/></div>
+                </Link>
             </div>
         </Card>
     </div>

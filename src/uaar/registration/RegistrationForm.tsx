@@ -24,7 +24,6 @@ export default function RegistrationForm(props: Props) {
 
     function onSubmit() {
         props.onSubmit();
-        navigate("/login")
     }
 
     function completeRegistrationProcess(){
