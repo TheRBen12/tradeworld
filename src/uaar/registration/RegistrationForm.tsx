@@ -20,15 +20,12 @@ interface Props {
 
 export default function RegistrationForm(props: Props) {
     const navigate = useNavigate()
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
 
     function onSubmit() {
         props.onSubmit();
     }
 
-    function completeRegistrationProcess(){
-        navigate("/login");
-    }
 
     return <div className=" mt-5">
         <div className="d-flex justify-content-center align-items-center">
@@ -109,6 +106,7 @@ export default function RegistrationForm(props: Props) {
 
                                     <div className="form-error-message mt-1">
                                         {errors.password?.type === 'required' && "Bitte gib einen Vornamen ein*"}
+                                        {errors.password?.type === 'minLength' && 'Das Passwort ist zu kurz'}
                                     </div>
                                 </div>
                                 <div className="row mb-3">

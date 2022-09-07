@@ -8,7 +8,6 @@ import {Link, useNavigate} from "react-router-dom";
 
 
 export default function AccountDetails(props: Props) {
-    const navigate = useNavigate()
 
     return <div className=" mt-5 account-container w-50">
         <Card className="m-lg-1">

@@ -15,6 +15,7 @@ import AccountContainer from "./uaar/Account/AccountContainer";
 import readCookie from "./uaar/CookieService";
 import {IconContext} from "react-icons";
 import { useForm } from "react-hook-form";
+import AccountEditFormContainer from "./uaar/Account/AccountEditFormContainer";
 
 
 
@@ -40,11 +41,18 @@ export default function App() {
                         </SecuredRoute>}>
                     </Route>
                     <Route path={"/account"} element={
+                       /*
                         <SecuredRoute sessionCookie={readCookie.readCookie('JSESSIONID')}>
-                            <AccountContainer/>
-                        </SecuredRoute>}>
+                             </SecuredRoute>
+                        */
+                            <AccountContainer/>  }>
+
                     </Route>
                     <Route path={"/dashboard"} element={<Dashboard/>}/>
+
+                    <Route path={"/edit"} element={<AccountEditFormContainer user={{email: "", firstName: "", lastName:"", country: "" +
+                            "", city:"", joinedAt: new Date()}}/>}/>
+
                 </Routes>
             </IconContext.Provider>
 

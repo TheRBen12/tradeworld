@@ -44,7 +44,7 @@ export default class AccountContainer extends React.Component<any, State> {
         return <div>
             {account && <AccountDetails user={account}/>}
             <Routes>
-                <Route path={"/*edit"} element={<AccountEditFormContainer user={account}/>}/>
+                <Route path={"/edit"} element={<AccountEditFormContainer user={account}/>}/>
             </Routes>
         </div>
 

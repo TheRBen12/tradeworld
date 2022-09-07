@@ -2,20 +2,20 @@ import React from "react";
 import {Props} from "./Props";
 import {Card} from "react-bootstrap";
 import {FormattedMessage} from "react-intl";
+import "./AccountEditForm.scss";
+
 
 
 export default function AccountEditForm(props: Props) {
-
-    const properties = Object.keys(props.user);
 
 
     return <div className="account-edit-container">
 
         <Card>
-            <h2 className="text-center mb-5">
+            <h2 className="text-center mb-5 mt-3">
                 <FormattedMessage id={"account.edit.title"}/>
             </h2>
-            <div className="row">
+            <div className="row m-3 m-5">
                 <div className="col">
 
                     <div className="form-group">
@@ -24,7 +24,7 @@ export default function AccountEditForm(props: Props) {
                     </div>
 
                     <div className="form-group">
-                        <FormattedMessage tagName={"label"} id={"user.firstname"}/>
+                        <FormattedMessage tagName={"label"} id={"user.firstName"}/>
                         <input className="form-control" name="firstName" type="text" required={true}/>
                     </div>
 
@@ -50,12 +50,11 @@ export default function AccountEditForm(props: Props) {
                         <input className="form-control" name="country" type="text" required={true}/>
                     </div>
 
-                    <div className="mb-3 form-group">
-                        <button type="submit"
-                                className=" submit-btn btn btn-primary">Speichern
-                        </button>
-                    </div>
-
+                </div>
+                <div className="mb-3 form-group mt-5">
+                    <button type="submit"
+                            className=" submit-btn btn btn-primary">Speichern
+                    </button>
                 </div>
             </div>
         </Card>
